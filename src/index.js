@@ -8,6 +8,6 @@ app.get('/', (req, res) => {
     });
 });
 
-app.listen(80, "127.17.0.1");
+app.listen(80, "0.0.0.0");
 
 
