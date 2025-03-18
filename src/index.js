@@ -1,6 +1,7 @@
 const express = require('express');
 const app = express();
 
+app.set('port', process.env.PORT || 80);
 app.get('/', (req, res) => {
   res.json({
       message: "My name is Jonathan",
@@ -8,6 +9,6 @@ app.get('/', (req, res) => {
     });
 });
 
-app.listen(80);
+app.listen(app.get('port'));
 
 
