@@ -37,6 +37,11 @@ jobs:
           sbom: true
       
       - name: Run Docker Container
-        run: docker run -d -p 80:80 ${{ vars.DOCKER_USERNAME }}/apprentice-exercise
+        run: |
+          docker run -d --name my-app -p 80:80 ${{ vars.DOCKER_USERNAME }}/apprentice-exercise
+          sleep 5
+          docker ps
+          docker logs my-app
+
       - name: run tests
         uses: liatrio/github-actions/apprentice-action@master
