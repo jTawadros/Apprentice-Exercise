@@ -27,7 +27,7 @@ jobs:
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
 
-      - name: Build and Push Docker iamge
+      - name: Build and Push Docker image
         uses: docker/build-push-action@v6
         with:
           push: ${{ github.event_name != 'pull_request' }}
@@ -36,3 +36,8 @@ jobs:
           provenance: true
           sbom: true
 
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: run tests
+        uses: liatrio/github-actions/apprentice-action@master
