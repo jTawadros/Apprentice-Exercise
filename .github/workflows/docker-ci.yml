@@ -39,5 +39,7 @@ jobs:
   test:
     runs-on: ubuntu-latest
     steps:
+      - name: Run Docker Container
+        run: docker run -d -p 80:80 ${{ vars.DOCKER_USERNAME }}/apprentice-exercise
       - name: run tests
         uses: liatrio/github-actions/apprentice-action@master
