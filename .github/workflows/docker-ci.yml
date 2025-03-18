@@ -38,6 +38,7 @@ jobs:
 
   test:
     runs-on: ubuntu-latest
+    needs: [build]
     steps:
       - name: Run Docker Container
         run: docker run -d -p 80:80 ${{ vars.DOCKER_USERNAME }}/apprentice-exercise
