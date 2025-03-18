@@ -39,7 +39,7 @@ jobs:
       
       - name: Run Docker Container
         run: |
-          docker run -d --name my-app -p 172.170.1:80:80 ${{ vars.DOCKER_USERNAME }}/apprentice-exercise
+          docker run -d --name my-app -p 172.17.0.1:80:80 ${{ vars.DOCKER_USERNAME }}/apprentice-exercise
           docker ps
           docker logs my-app
 
