@@ -5,6 +5,7 @@ app.get('/', (req, res) => {
   const responseObject = {
     message: "My name is Jonathan",
     timestamp: Date.now()
+    minified: () => true,
   };
 
   res.setHeader('Content-Type', 'application/json');
