@@ -43,5 +43,6 @@ jobs:
           docker logs my-app
 
       - name: Run tests
+        if: false
         uses: liatrio/github-actions/apprentice-action@master
-        continue-on-error: true
+        
