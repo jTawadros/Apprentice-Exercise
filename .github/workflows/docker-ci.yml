@@ -51,4 +51,6 @@ jobs:
         run: npm install
 
       - name: run tests
-        uses: liatrio/github-actions/apprentice-action@master
+        run: npm test
+        env:
+          DOCKER_BRIDGE_IP: 172.17.0.1
