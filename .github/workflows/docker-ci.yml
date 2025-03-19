@@ -44,6 +44,3 @@ jobs:
 
       - name: run tests
         uses: liatrio/github-actions/apprentice-action@master
-        with:
-          test_c: "mocha --grep 'should return a minified JSON object' --invert"
-
