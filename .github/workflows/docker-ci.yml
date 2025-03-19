@@ -44,4 +44,5 @@ jobs:
 
       - name: run tests
         uses: liatrio/github-actions/apprentice-action@master
-        with: npx mocha --grep 'should return a minified JSON object\.' --invert
+        with: 
+          args: "--grep 'should return a minified JSON object\.' --invert"
