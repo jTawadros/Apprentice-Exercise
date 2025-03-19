@@ -51,7 +51,6 @@ jobs:
         shell: bash
         run: |
           echo "Saving logs to apprentice-tests.log"
-          # Manually redirect GitHub Actions logs into a file
           { 
             echo "===== START TEST LOG ====="
             echo "Timestamp: $(date)"
@@ -60,7 +59,7 @@ jobs:
             echo "===== END TEST LOG ====="
           } > apprentice-tests.log
 
-      - name: Debug: Show Log Contents
+      - name: Debug
         run: cat apprentice-tests.log || echo "No logs found."
 
       - name: Analyze Test Results
