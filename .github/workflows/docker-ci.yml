@@ -46,10 +46,10 @@ jobs:
         uses: liatrio/github-actions/apprentice-action@master       
         continue-on-error: true
 
-      - name: Find Fails
+      - name: Capture fail logs
         shell: bash
         run: |
-          echo "${{ steps.apprentice_tests.outputs.stdout }}" > apprentice-tests.log
+          echo "${{ toJSON(steps.apprentice_tests.outputs) }}" > apprentice-tests.log
 
 
       - name: Analyze results
@@ -57,11 +57,12 @@ jobs:
         run: |
           if grep -q 'should return a minified JSON object' apprentice-tests.log; then
             echo "Ignoring this test"
-            sed -i '/should return a minified JSON object/d' apprentice-tests.log
+          else
+            echo "No known failures"
           fi
 
-          if grep -q 'fail' apprentice-tests.log; then
-            echo "Unexpected failed test"
+          if grep -q 'failing' apprentice-tests.log; then
+            echo "Unexpected test failure"
             exit 1
           else
             echo "All tests passed"
