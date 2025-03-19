@@ -43,9 +43,14 @@ jobs:
           docker logs my-app
 
       - name: Run Tests
+        uses: liatrio/github-actions/apprentice-action@master
+        id: test_action
+        continue-on-error: true
+
+      - name: Save logs
         run: |
           mkdir -p /tmp/test-logs
-          liatrio/github-actions/apprentice-action@master | tee /tmp/test-logs/test_output.log 
+          echo "${{ steps.test_action.outputs }}" | tee /tmp/test-logs/test_output.log
           cat /tmp/test-logs/test_output.log
           rm -f /tmp/test-logs/test_output.log
         shell: bash
