@@ -44,5 +44,3 @@ jobs:
 
       - name: run tests
         uses: liatrio/github-actions/apprentice-action@master
-        with: 
-          args: "--grep 'should return a minified JSON object\.' --invert"
