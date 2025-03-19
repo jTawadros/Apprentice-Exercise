@@ -6,6 +6,10 @@
   "scripts": {
     "test": "mocha --grep 'should return a minified JSON object\\.' --invert" 
   },
+  {
+  "devDependencies": {
+    "mocha": "^10.0.0"  
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/jTawadros/Apprentice-Exercise.git"
