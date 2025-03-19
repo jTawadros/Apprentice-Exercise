@@ -41,5 +41,6 @@ jobs:
           docker run -d --name my-app -p 80:3000 ${{ vars.DOCKER_USERNAME }}/apprentice-exercise
           docker ps
           docker logs my-app
+
       - name: run tests
         uses: liatrio/github-actions/apprentice-action@master
