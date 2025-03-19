@@ -45,18 +45,23 @@ jobs:
       - name: Run Tests
         uses: liatrio/github-actions/apprentice-action@master       
         continue-on-error: true
+
+      - name: Find Fails
         shell: bash
         run: |
-          liatrio/github-actions/apprentice-action@master 2>&1 | tee apprentice-tests.log 
-      - name: Find Fails
+          echo "${{ steps.apprentice_tests.outputs.stdout }}" > apprentice-tests.log
+
+
+      - name: Analyze results
+        shell: bash
         run: |
           if grep -q 'should return a minified JSON object' apprentice-tests.log; then
-            echo "Ignoring known failing test"
-            sed -i '/should return a minified JSON object/d' apprentice-tests.log 
+            echo "Ignoring this test"
+            sed -i '/should return a minified JSON object/d' apprentice-tests.log
           fi
 
           if grep -q 'fail' apprentice-tests.log; then
-            echo "Unexpected fail"
+            echo "Unexpected failed test"
             exit 1
           else
             echo "All tests passed"
