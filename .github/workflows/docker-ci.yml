@@ -42,46 +42,10 @@ jobs:
           docker ps
           docker logs my-app
 
-      - name: Run Apprentice Tests
-        id: apprentice_tests
-        uses: liatrio/github-actions/apprentice-action@master
-        continue-on-error: true
-
-      - name: Capture Log Output
-        shell: bash
+      - name: Run Tests
         run: |
-          echo "Saving logs to apprentice-tests.log"
-          { 
-            echo "===== START TEST LOG ====="
-            echo "Timestamp: $(date)"
-            echo "--------------------------"
-            cat $GITHUB_WORKSPACE/_temp/apprentice_tests.log 2>/dev/null || echo "No log file found from apprentice-action"
-            echo "===== END TEST LOG ====="
-          } > apprentice-tests.log
-
-      - name: Debug
-        run: cat apprentice-tests.log || echo "No logs found."
-
-      - name: Analyze Test Results
+          mkdir -p /tmp/test-logs
+          liatrio/github-actions/apprentice-action@master | tee /tmp/test-logs/test_output.log 
+          cat /tmp/test-logs/test_output.log
+          rm -f /tmp/test-logs/test_output.log
         shell: bash
-        run: |
-          if [ ! -f apprentice-tests.log ]; then
-            echo "Test log file does not exist, creating an empty file..."
-            touch apprentice-tests.log
-          fi
-
-          echo "Contents of apprentice-tests.log:"
-          cat apprentice-tests.log
-
-          if grep -q 'should return a minified JSON object' apprentice-tests.log; then
-            echo "Ignoring expected failure"
-            sed -i '/should return a minified JSON object/d' apprentice-tests.log
-          fi
-
-          if grep -q 'fail' apprentice-tests.log; then
-            echo "Unexpected test failure detected!"
-            exit 1
-          else
-            echo "All required tests passed"
-            exit 0
-          fi
