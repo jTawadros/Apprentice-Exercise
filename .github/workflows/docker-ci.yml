@@ -51,6 +51,6 @@ jobs:
         run: npm install
 
       - name: Run tests
-      run: npx mocha ./_actions/liatrio/github-actions/master/apprentice-action/tests/endpoint.test.js --grep 'should return a minified JSON object\.' --invert
-      env:
-        DOCKER_BRIDGE_IP: 172.17.0.1
+        run: npx mocha ./_actions/liatrio/github-actions/master/apprentice-action/tests/endpoint.test.js --grep 'should return a minified JSON object\.' --invert
+        env:
+          DOCKER_BRIDGE_IP: 172.17.0.1
