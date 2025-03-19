@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "mocha --fgrep 'should return a minified JSON object.' --invert" 
+    "test": "test" 
   },
   "devDependencies": {
     "mocha": "^9.2.2"
