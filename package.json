@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "mocha tests/**/*.js --grep 'should return a minified JSON object\\.' --invert" 
+    "test": "mocha tests/**/*.test.js --grep 'should return a minified JSON object\\.' --invert" 
   },
   "devDependencies": {
     "mocha": "^9.2.2"
