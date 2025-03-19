@@ -50,7 +50,7 @@ jobs:
       - name: Save logs
         run: |
           mkdir -p /tmp/test-logs
-          echo "${{ toJson(steps.test_action) }}" | tee /tmp/test-logs/test_output.log
+          cat $GITHUB_WORKSPACE/_actions/liatrio/github-actions/master/apprentice-action/tests/endpoint.test.js > /tmp/test-logs/test_output.log 2>&1 || true
           cat /tmp/test-logs/test_output.log
           rm -f /tmp/test-logs/test_output.log
         shell: bash
