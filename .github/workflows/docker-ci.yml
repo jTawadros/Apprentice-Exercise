@@ -42,9 +42,5 @@ jobs:
           docker ps
           docker logs my-app
 
-      - name: Run Mocha Manually (Skip Last Test)
-        run: |
-          npx mocha --invert --grep "should return a minified JSON object"
-
       - name: Run Apprentice Tests
         uses: liatrio/github-actions/apprentice-action@master       
