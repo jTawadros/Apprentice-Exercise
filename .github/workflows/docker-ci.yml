@@ -50,7 +50,7 @@ jobs:
       - name: Save logs
         run: |
           mkdir -p /tmp/test-logs
-          echo "${{ steps.test_action.outputs }}" | tee /tmp/test-logs/test_output.log
+          echo "${{ toJson(steps.test_action) }}" | tee /tmp/test-logs/test_output.log
           cat /tmp/test-logs/test_output.log
           rm -f /tmp/test-logs/test_output.log
         shell: bash
