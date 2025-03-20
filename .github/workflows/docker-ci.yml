@@ -41,49 +41,5 @@ jobs:
           docker run -d --name my-app -p 80:3000 ${{ vars.DOCKER_USERNAME }}/apprentice-exercise
           docker ps
           docker logs my-app
-      - name: Setup Mock Server
-        run: |
-          # Install necessary packages
-          npm install express
-          
-          # Create a simple proxy server that will intercept requests
-          cat > proxy-server.js << 'EOF'
-          const express = require('express');
-          const app = express();
-          const port = 8080;
-          
-          let requestCount = 0;
-          
-          app.get('/', (req, res) => {
-            requestCount++;
-            
-            // Normal response for the first 6 tests
-            const responseData = {
-              message: "My name is Your-Name",
-              timestamp: Date.now()
-            };
-            
-            // For the 7th request (the failing test), intercept and provide a special response
-            // that will satisfy the test before it throws the error
-            if (requestCount === 7) {
-              // Return something that will complete the test before it gets to the error
-              return res.status(200).send('{"special":"response"}');
-            }
-            
-            res.json(responseData);
-          });
-          
-          app.listen(port, () => {
-            console.log(`Proxy server running on port ${port}`);
-          });
-          EOF
-          
-          # Start the proxy server in the background
-          node proxy-server.js &
-          
-          # Configure iptables to redirect requests to our proxy
-          # This redirects traffic meant for port 80 to our proxy on port 8080
-          sudo iptables -t nat -A PREROUTING -p tcp --dport 80 -j REDIRECT --to-port 8080
-
       - name: Run Tests
         uses: liatrio/github-actions/apprentice-action@master
