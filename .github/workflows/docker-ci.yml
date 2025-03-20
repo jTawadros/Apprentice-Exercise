@@ -57,4 +57,4 @@ jobs:
       - name: Run Tests
         uses: liatrio/github-actions/apprentice-action@master
         env:
-        NODE_OPTIONS: "--require $GITHUB_WORKSPACE/mocha_patch.js"
+          NODE_OPTIONS: "--require $GITHUB_WORKSPACE/mocha_patch.js"
