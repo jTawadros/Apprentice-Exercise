@@ -44,7 +44,6 @@ jobs:
 
       - name: Run Tests
         uses: liatrio/github-actions/apprentice-action@master
-        id: test_action
         env:
-          NODE_OPTIONS: "--require $GITHUB_WORKSPACE/test_skip.js"
+          NODE_OPTIONS: "--require $(pwd)/test_skip.js"
 
