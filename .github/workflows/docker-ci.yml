@@ -42,10 +42,15 @@ jobs:
           docker ps
           docker logs my-app
 
+
       - name: Patch out forced error
         run: |
-          sed -i 's/throw new Error("TypeError: Object(...) is not a function");//g' $GITHUB_WORKSPACE/tests/endpoint.test.js
-          echo "Patched the forced-error line."
+          echo "Before patching, here's what the action folder looks like:"
+          ls -R "$GITHUB_ACTION_PATH"
 
+          sed -i 's/throw new Error("TypeError: Object(...) is not a function");//' \
+            "$GITHUB_ACTION_PATH/tests/endpoint.test.js"
+
+          echo "Patched the forced-error line."
       - name: Run Tests
         uses: liatrio/github-actions/apprentice-action@master
