@@ -1,0 +1,41 @@
+name: Deploy to Google Cloud
+
+on:
+  push:
+    branches:
+      - main
+
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Authenticate
+        id: aut
+        uses: google-github-actions/auth@v1
+        with:
+          workload_identity_provider: '${{ secrets.WIF_PROVIDER }}'
+          service_account: '${{ secrets.WIF_SERVICE_ACCOUNT }}'
+      - name: Set up Cloud SDK
+        uses: google-github-actions/setup-gcloud@v1
+        with:
+          project_id: '${{ secrets.PROJECT_ID }}'
+
+      - name: Build and push container
+        run: |
+          docker build -t "gcr.io/apprentice-exercise/apprentice-exercise:${{ github.sha }}" .
+          docker push "gcr.io/apprentice-exercise/apprentice-exercise:${{ github.sha }}"
+
+
+
+      - name: Deploy 
+        run: |
+          gcloud run deploy apprentice-exercise \
+            --image=gcr.io/apprentice-exercise/apprentice-exercise:${{ github.sha }} \
+            --region=us-central1 \
+            --platform=managed \
+            --allow-unauthenticated
+
