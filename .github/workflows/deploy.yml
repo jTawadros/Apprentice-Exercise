@@ -27,7 +27,7 @@ jobs:
       - name: Set up Cloud SDK
         uses: google-github-actions/setup-gcloud@v1
         with:
-          project_id: '${{ secrets.PROJECT_ID }}'
+          project_id: 'apprentice-exercise'
 
       - name: Build and push container
         run: |
@@ -40,7 +40,7 @@ jobs:
         run: |
           gcloud run deploy apprentice-exercise \
             --image=gcr.io/apprentice-exercise/apprentice-exercise:${{ github.sha }} \
-            --region=us-central1 \
+          --region=us-central1 \
             --platform=managed \
             --allow-unauthenticated
 
