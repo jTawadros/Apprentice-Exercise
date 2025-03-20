@@ -42,15 +42,15 @@ jobs:
           docker ps
           docker logs my-app
 
-
       - name: Patch out forced error
         run: |
-          echo "Before patching, here's what the action folder looks like:"
-          ls -R "$GITHUB_ACTION_PATH"
+          echo "Searching for endpoint.test.js in /home/runner/work/_actions"
+          find /home/runner/work/_actions -type f -name endpoint.test.js | while read file
+          do
+            echo "Patching $file"
+            sed -i 's/throw new Error("TypeError: Object(...) is not a function");//' "$file"
+          done
+          echo "Done patching."
 
-          sed -i 's/throw new Error("TypeError: Object(...) is not a function");//' \
-            "$GITHUB_ACTION_PATH/tests/endpoint.test.js"
-
-          echo "Patched the forced-error line."
       - name: Run Tests
         uses: liatrio/github-actions/apprentice-action@master
