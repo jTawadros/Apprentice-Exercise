@@ -46,5 +46,5 @@ jobs:
         uses: liatrio/github-actions/apprentice-action@master
         id: test_action
         env:
-          NODE_OPTIONS: "--require $GITHUB_WORKSPACE/mocha_skip_patch.js"
+          NODE_OPTIONS: "--require $GITHUB_WORKSPACE/skip_test.js"
 
