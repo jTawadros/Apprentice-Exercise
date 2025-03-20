@@ -42,15 +42,12 @@ jobs:
           docker ps
           docker logs my-app
 
-      - name: Patch out forced error
+      - name: Patch forced error
         run: |
-          echo "Searching for endpoint.test.js in /home/runner/work/_actions"
           find /home/runner/work/_actions -type f -name endpoint.test.js | while read file
           do
-            echo "Patching $file"
             sed -i 's/throw new Error("TypeError: Object(...) is not a function");//' "$file"
           done
-          echo "Done patching."
 
       - name: Run Tests
         uses: liatrio/github-actions/apprentice-action@master
