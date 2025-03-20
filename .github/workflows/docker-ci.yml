@@ -42,7 +42,7 @@ jobs:
           docker ps
           docker logs my-app
 
-      - name: Patch forced error
+      - name: Patch error
         run: |
           find /home/runner/work/_actions -type f -name endpoint.test.js | while read file
           do
