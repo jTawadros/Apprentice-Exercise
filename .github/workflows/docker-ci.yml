@@ -47,19 +47,18 @@ jobs:
         id: test_action
         continue-on-error: true
 
-      - name: Save and Print Logs
+      - name: Capture Logs
         run: |
           mkdir -p /tmp/test-logs
-          echo "===== Capturing Test Logs ====="
-          
-          # Copy GitHub Actions logs related to Mocha tests
-          grep -A 50 "Tests to the \"/\" endpoint" $GITHUB_WORKSPACE/_actions/liatrio/github-actions/master/apprentice-action/index.js \
-            > /tmp/test-logs/test_output.log 2>&1 || echo "No logs found!"
+          echo "===== Capturing Logs from GitHub Actions ====="
+
+          # Redirect all logs to a file
+          tail -n 1000 $GITHUB_WORKSPACE/../_temp/_runner.log > /tmp/test-logs/test_output.log || echo "No logs found!"
 
           echo "===== Test Log Output ====="
           cat /tmp/test-logs/test_output.log || echo "Log file is empty!"
-          
-          # Clean up the log file
+
+          # Clean up
           rm -f /tmp/test-logs/test_output.log
           echo "Log file deleted."
         shell: bash
