@@ -1,12 +1,10 @@
 FROM node:16
 
-USER root
-
 WORKDIR /app
 
 COPY package.json package-lock.json ./
 
-RUN npm install --omit=dev
+RUN npm install
 
 COPY src/ ./src/
 
