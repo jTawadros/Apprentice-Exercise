@@ -17,7 +17,7 @@ jobs:
         uses: actions/checkout@v3
 
       - name: Authenticate
-        id: aut
+        id: auth
         uses: google-github-actions/auth@v1
         with:
           workload_identity_provider: '${{ secrets.WIF_PROVIDER }}'
@@ -29,18 +29,18 @@ jobs:
           project_id: apprentice-exercise
 
       - name: Authenticate Docker 
-        run: gcloud auth configure-docker gcr.io
+        run: gcloud auth configure-docker us-central1-docker.pkg.dev
        
 
       - name: Build and push container
         run: |
-          docker build -t "gcr.io/apprentice-exercise/apprentice-exercise:${{ github.sha }}" .
-          docker push "gcr.io/apprentice-exercise/apprentice-exercise:${{ github.sha }}"
+          docker build -t "us-central1-docker.pkg.dev/apprentice-exercise/apprentice-repo/apprentice-exercise:${{ github.sha }}" .
+          docker push "us-central1-docker.pkg.dev/apprentice-exercise/apprentice-repo/apprentice-exercise:${{ github.sha }}"
 
       - name: Deploy 
         run: |
           gcloud run deploy apprentice-exercise \
-            --image=gcr.io/apprentice-exercise/apprentice-exercise:${{ github.sha }} \
+            --image=us-central1-docker.pkg.dev/apprentice-exercise/apprentice-repo/apprentice-exercise:${{ github.sha }} \
             --region=us-central1 \
             --platform=managed \
             --allow-unauthenticated
