@@ -5,7 +5,7 @@ app.get('/', (req, res) => {
   res.json({
     message: "My name is Jonathan",
     timestamp: Date.now(),
-    verify: "Confirm Deployment using github actions on push!"
+    verify: "Confirm Deployment using github actions on push (Artifact Registry)!"
   });
 });
 
