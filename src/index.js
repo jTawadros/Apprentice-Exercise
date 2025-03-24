@@ -5,7 +5,7 @@ app.get('/', (req, res) => {
   res.json({
     message: "My name is Jonathan",
     timestamp: Date.now(),
-    verify: "placeholder text"
+    verify: "I have been deployed using GitHub actions"
   });
 });
 
